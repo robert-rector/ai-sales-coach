@@ -1,3 +1,8 @@
+/** Thrown when the learner has hit the usage limit (Vercel Firewall returns 429). */
+export class RateLimitError extends Error {
+  name = "RateLimitError";
+}
+
 /**
  * Streams coaching feedback from the app's /api/coach route.
  * `onText` receives the full text received so far each time a new piece arrives.
@@ -14,6 +19,7 @@ export async function streamCoaching(
     body: JSON.stringify({ scenarioId, choiceId }),
     signal,
   });
+  if (res.status === 429) throw new RateLimitError("Usage limit reached");
   if (!res.ok || !res.body) throw new Error(`Coach request failed (${res.status})`);
 
   const reader = res.body.pipeThrough(new TextDecoderStream()).getReader();

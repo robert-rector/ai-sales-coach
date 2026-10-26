@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { streamCoaching } from "@/lib/coach";
+import { RateLimitError, streamCoaching } from "@/lib/coach";
 import { useWordStream } from "@/hooks/useWordStream";
 import type { Choice, Scenario } from "@/types";
 
@@ -11,7 +11,7 @@ interface Props {
   onHowItWorks: () => void;
 }
 
-type Status = "loading" | "streaming" | "complete" | "error";
+type Status = "loading" | "streaming" | "complete" | "error" | "limited";
 
 export function FeedbackScreen({ scenario, choice, onBack, onRestart, onHowItWorks }: Props) {
   const [status, setStatus] = useState<Status>("loading");
@@ -19,9 +19,11 @@ export function FeedbackScreen({ scenario, choice, onBack, onRestart, onHowItWor
   const [copied, setCopied] = useState(false);
   const abortRef = useRef<AbortController | null>(null);
 
+  const failed = status === "error" || status === "limited";
+
   // While streaming, hold back the last word in case it arrived cut in half.
   const revealTarget =
-    feedback === null || status === "error"
+    feedback === null || failed
       ? null
       : status === "complete"
         ? feedback
@@ -46,7 +48,8 @@ export function FeedbackScreen({ scenario, choice, onBack, onRestart, onHowItWor
     )
       .then(() => setStatus("complete"))
       .catch((err) => {
-        if (err.name !== "AbortError") setStatus("error");
+        if (err.name === "AbortError") return;
+        setStatus(err instanceof RateLimitError ? "limited" : "error");
       });
   }, [scenario.id, choice.id]);
 
@@ -82,7 +85,7 @@ export function FeedbackScreen({ scenario, choice, onBack, onRestart, onHowItWor
         <img className="avatar" src={scenario.coach.avatar} alt={scenario.coach.name} />
         <div className="speaker-body">
           <h2>Your Feedback</h2>
-          {status !== "error" && !shown && (
+          {!failed && !shown && (
             <p className="thinking" role="status">
               Coach {scenario.coach.name} is thinking<span className="dots" aria-hidden="true" />
             </p>
@@ -95,7 +98,16 @@ export function FeedbackScreen({ scenario, choice, onBack, onRestart, onHowItWor
               </button>
             </p>
           )}
-          {status !== "error" && shown && (
+          {status === "limited" && (
+            <p className="notice" role="alert">
+              You’ve asked for a lot of feedback in a short time. Take a few minutes to reflect,
+              then try again.{" "}
+              <button className="btn btn-link" onClick={request}>
+                Try again
+              </button>
+            </p>
+          )}
+          {!failed && shown && (
             <p className="feedback-text" aria-hidden="true">
               {shown}
             </p>
