@@ -100,8 +100,8 @@ export function FeedbackScreen({ scenario, choice, onBack, onRestart, onHowItWor
           )}
           {status === "limited" && (
             <p className="notice" role="alert">
-              You’ve asked for a lot of feedback in a short time. Take a few minutes to reflect,
-              then try again.{" "}
+              Wow, you’ve asked for a lot of feedback in a short time! I need a quick break. Please
+              try again in up to 10 minutes.{" "}
               <button className="btn btn-link" onClick={request}>
                 Try again
               </button>
