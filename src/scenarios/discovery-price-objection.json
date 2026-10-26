@@ -15,8 +15,20 @@
   "prospectLine": "Honestly, we’ve already looked at two other vendors who do this cheaper. Why should we even keep talking?",
   "question": "How will you respond?",
   "choices": [
-    { "id": "feature_dump", "text": "Well, we actually have more features than most of our competitors." },
-    { "id": "curious_probe", "text": "That’s fair. What’s been missing from what you’ve seen so far?" },
-    { "id": "defensive_value", "text": "Price is one piece — let me show you our ROI calculator." }
+    {
+      "id": "feature_dump",
+      "text": "Well, we actually have more features than most of our competitors.",
+      "intent": "Jumps straight into a feature pitch without learning what Sarah actually needs."
+    },
+    {
+      "id": "curious_probe",
+      "text": "That’s fair. What’s been missing from what you’ve seen so far?",
+      "intent": "Acknowledges the concern and asks a curious, open-ended question to uncover what Sarah values."
+    },
+    {
+      "id": "defensive_value",
+      "text": "Price is one piece — let me show you our ROI calculator.",
+      "intent": "Gets defensive about price and pushes a value tool before understanding Sarah’s situation."
+    }
   ]
 }

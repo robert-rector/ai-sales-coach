@@ -4,9 +4,10 @@ export interface Persona {
 }
 
 export interface Choice {
-  /** Sent to the coach endpoint as `user_choice`; the Worker keys its prompt off this. */
   id: string;
   text: string;
+  /** What this response does, in the designer's words. Given to the AI coach, never shown to the learner. */
+  intent: string;
 }
 
 export interface Scenario {

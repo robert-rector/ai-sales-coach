@@ -1,14 +1,16 @@
+"use client";
+
 import { useState } from "react";
-import { scenarios } from "./scenarios";
-import type { Choice } from "./types";
-import { IntroScreen } from "./components/IntroScreen";
-import { QuestionScreen } from "./components/QuestionScreen";
-import { FeedbackScreen } from "./components/FeedbackScreen";
-import { HowItWorks } from "./components/HowItWorks";
+import { scenarios } from "@/scenarios";
+import type { Choice } from "@/types";
+import { IntroScreen } from "./IntroScreen";
+import { QuestionScreen } from "./QuestionScreen";
+import { FeedbackScreen } from "./FeedbackScreen";
+import { HowItWorks } from "./HowItWorks";
 
 type Step = { name: "intro" } | { name: "question" } | { name: "feedback"; choice: Choice };
 
-export function App() {
+export function CoachApp() {
   const scenario = scenarios[0];
   const [step, setStep] = useState<Step>({ name: "intro" });
   const [showHow, setShowHow] = useState(false);

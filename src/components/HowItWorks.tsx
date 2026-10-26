@@ -15,11 +15,11 @@ export function HowItWorks({ open, onClose }: { open: boolean; onClose: () => vo
       <h2 id="how-title">How this works</h2>
       <ol>
         <li>The scenario (setup, objection, response options) is plain data, separate from the app.</li>
-        <li>When you choose a response, its ID is sent to a Cloudflare Worker.</li>
-        <li>The Worker wraps it in a structured coaching prompt and calls Google’s Gemini API.</li>
-        <li>Gemini’s feedback comes back and is streamed onto the page word by word.</li>
+        <li>When you choose a response, the app’s server looks it up in the scenario.</li>
+        <li>The server builds a structured coaching prompt (the situation, what the prospect said, and what you said) and sends it to Google’s Gemini API.</li>
+        <li>Gemini’s feedback streams back onto the page as it’s written.</li>
       </ol>
-      <p>Keeping the API key in the Worker means it never reaches the browser.</p>
+      <p>The Gemini API key and the coaching prompt stay on the server, so they never reach the browser.</p>
       <button className="btn btn-primary" onClick={onClose}>
         Got it
       </button>

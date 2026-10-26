@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { getCoaching } from "../lib/coach";
-import { useWordStream } from "../hooks/useWordStream";
-import type { Choice, Scenario } from "../types";
+import { streamCoaching } from "@/lib/coach";
+import { useWordStream } from "@/hooks/useWordStream";
+import type { Choice, Scenario } from "@/types";
 
 interface Props {
   scenario: Scenario;
@@ -11,14 +11,23 @@ interface Props {
   onHowItWorks: () => void;
 }
 
-type Status = "loading" | "ready" | "error";
+type Status = "loading" | "streaming" | "complete" | "error";
 
 export function FeedbackScreen({ scenario, choice, onBack, onRestart, onHowItWorks }: Props) {
   const [status, setStatus] = useState<Status>("loading");
   const [feedback, setFeedback] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const abortRef = useRef<AbortController | null>(null);
-  const { shown, done } = useWordStream(feedback, 60);
+
+  // While streaming, hold back the last word in case it arrived cut in half.
+  const revealTarget =
+    feedback === null || status === "error"
+      ? null
+      : status === "complete"
+        ? feedback
+        : feedback.slice(0, feedback.lastIndexOf(" ") + 1).trimEnd();
+  const { shown, done: revealed } = useWordStream(revealTarget, 60);
+  const done = status === "complete" && revealed;
 
   const request = useCallback(() => {
     abortRef.current?.abort();
@@ -26,15 +35,20 @@ export function FeedbackScreen({ scenario, choice, onBack, onRestart, onHowItWor
     abortRef.current = controller;
     setStatus("loading");
     setFeedback(null);
-    getCoaching(choice.id, controller.signal)
-      .then((text) => {
+    streamCoaching(
+      scenario.id,
+      choice.id,
+      (text) => {
         setFeedback(text);
-        setStatus("ready");
-      })
+        setStatus("streaming");
+      },
+      controller.signal,
+    )
+      .then(() => setStatus("complete"))
       .catch((err) => {
         if (err.name !== "AbortError") setStatus("error");
       });
-  }, [choice.id]);
+  }, [scenario.id, choice.id]);
 
   useEffect(() => {
     request();
@@ -68,7 +82,7 @@ export function FeedbackScreen({ scenario, choice, onBack, onRestart, onHowItWor
         <img className="avatar" src={scenario.coach.avatar} alt={scenario.coach.name} />
         <div className="speaker-body">
           <h2>Your Feedback</h2>
-          {status === "loading" && (
+          {status !== "error" && !shown && (
             <p className="thinking" role="status">
               Coach {scenario.coach.name} is thinking<span className="dots" aria-hidden="true" />
             </p>
@@ -81,15 +95,15 @@ export function FeedbackScreen({ scenario, choice, onBack, onRestart, onHowItWor
               </button>
             </p>
           )}
-          {status === "ready" && feedback && (
-            <>
-              <p className="feedback-text" aria-hidden="true">
-                {shown}
-              </p>
-              <p className="sr-only" role="status">
-                {feedback}
-              </p>
-            </>
+          {status !== "error" && shown && (
+            <p className="feedback-text" aria-hidden="true">
+              {shown}
+            </p>
+          )}
+          {status === "complete" && (
+            <p className="sr-only" role="status">
+              {feedback}
+            </p>
           )}
 
           {done && (
