@@ -12,6 +12,7 @@ export function IntroScreen({ scenario, onStart }: { scenario: Scenario; onStart
       <div className="intro-lines">
         <StreamedLines
           lines={scenario.intro.map((text) => ({ text, className: "line" }))}
+          pauseMs={1000}
           onDone={() => setReady(true)}
         />
       </div>
