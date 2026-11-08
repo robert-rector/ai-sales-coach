@@ -171,24 +171,27 @@ h2 { font-size: 20px; font-weight: 600; color: var(--teal); margin: 0 0 8px; }
   font-style: italic;
 }
 
+/* A streamed line stacks its visible text on top of an invisible full copy that holds its space. */
+.stream-line { display: grid; }
+.stream-line > .stream-ghost,
+.stream-line > .stream-shown { grid-area: 1 / 1; }
+.stream-ghost { visibility: hidden; }
+
 /*
- * Start the question and feedback boxes at roughly their finished height, so the Back
- * button below them stays put while text streams in. They still grow for long feedback.
- * Heights measured from the finished screens at each width, plus some headroom.
+ * Start the feedback box at roughly its finished height, so the Back button below it stays
+ * put while Gemini's feedback streams in. It still grows for unusually long feedback.
+ * Heights measured from finished feedback at each width, plus some headroom.
+ * (The question screen needs none: StreamedLines reserves each line's space up front.)
  */
-.screen.question { min-height: 490px; }
 .screen.feedback { min-height: 635px; }
 @media (max-width: 760px) {
-  .screen.question { min-height: 590px; }
   .screen.feedback { min-height: 735px; }
 }
 @media (max-width: 480px) {
-  .screen.question { min-height: 790px; }
-  .screen.feedback { min-height: 1050px; }
+  .screen.feedback { min-height: 1110px; }
 }
 @media (max-width: 375px) {
-  .screen.question { min-height: 890px; }
-  .screen.feedback { min-height: 1150px; }
+  .screen.feedback { min-height: 1210px; }
 }
 
 /* Choices */
@@ -223,7 +226,13 @@ h2 { font-size: 20px; font-weight: 600; color: var(--teal); margin: 0 0 8px; }
   margin-top: 24px;
   padding: 8px 18px 8px 13px;
 }
-.btn-back svg { width: 16px; height: 16px; }
+.btn-back svg, .btn-next svg { width: 16px; height: 16px; }
+.btn-next {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px 10px 22px;
+}
 
 /* Feedback */
 .your-choice {

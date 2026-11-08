@@ -1,0 +1,29 @@
+{
+  "id": "discovery-status-quo-objection",
+  "title": "Handling Objections",
+  "coach": { "name": "Alex", "avatar": "/avatars/alex.png" },
+  "prospect": { "name": "Bill", "avatar": "/avatars/bill.png" },
+  "setup": [
+    "You’re a sales rep on a discovery call with Bill, an operations manager whose team has used the same system for years.",
+    "As you start asking about his current process, Bill leans back and says:"
+  ],
+  "prospectLine": "Look, our current setup isn’t perfect, but it works. My team knows it, and switching sounds like a lot of pain for not much gain.",
+  "question": "How will you respond?",
+  "choices": [
+    {
+      "id": "knock_incumbent",
+      "text": "A lot of teams say that, but older systems like yours usually end up costing more in the long run.",
+      "intent": "Criticizes Bill’s current solution, which puts him on the defensive and makes him justify a choice he’s already made."
+    },
+    {
+      "id": "premature_incentive",
+      "text": "Totally understand. What if we handled the whole migration for free so it’s no hassle?",
+      "intent": "Jumps to an incentive to remove friction before learning whether there’s a problem worth solving at all."
+    },
+    {
+      "id": "explore_cost_of_status_quo",
+      "text": "That’s a fair concern. Switching is real work. When you say it isn’t perfect, where does it slow your team down most?",
+      "intent": "Validates the concern about change, then picks up on Bill’s own words to uncover pain he already admits exists."
+    }
+  ]
+}

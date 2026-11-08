@@ -22,7 +22,7 @@ scenario + choice id  ───────▶  looks up scenario and choice
 feedback streams in   ◀──────  streams text back              ◀──────
 ```
 
-- **Content is data.** Everything a learner sees lives in [`src/scenarios/*.json`](src/scenarios/), separate from the code that runs it. Each choice also carries an `intent` (what the response does, in the designer's words) that guides the coach. Adding a scenario means adding a file, not rebuilding screens.
+- **Content is data.** Everything a learner sees lives in [`src/scenarios/*.json`](src/scenarios/), separate from the code that runs it. Each choice also carries an `intent` (what the response does, in the designer's words) that guides the coach. Adding a scenario means adding a file and listing it in [`src/scenarios/index.ts`](src/scenarios/index.ts), not rebuilding screens. Learners play the scenarios in that order.
 - **The key and prompt stay server-side.** The browser sends only a scenario ID and choice ID. The server rejects anything that isn't in a scenario file, so the endpoint can't be used to send arbitrary prompts.
 - **Feedback streams.** Text appears as Gemini writes it rather than after the full response arrives.
 

@@ -4,7 +4,7 @@ import { loadFeedback, saveFeedback } from "@/lib/feedbackCache";
 import { useWordStream } from "@/hooks/useWordStream";
 import type { Choice, Scenario } from "@/types";
 import { CheckIcon, CopyIcon, RegenerateIcon } from "./ActionIcons";
-import { BackButton } from "./BackButton";
+import { BackButton, NextButton } from "./BackButton";
 
 interface Props {
   scenario: Scenario;
@@ -12,12 +12,14 @@ interface Props {
   /** Show this choice's remembered feedback, if any, instead of asking for new. */
   restore: boolean;
   onBack: () => void;
+  /** Go on to the next scenario; absent on the last one. */
+  onNext?: () => void;
   onHowItWorks: () => void;
 }
 
 type Status = "loading" | "streaming" | "complete" | "error" | "limited";
 
-export function FeedbackScreen({ scenario, choice, restore, onBack, onHowItWorks }: Props) {
+export function FeedbackScreen({ scenario, choice, restore, onBack, onNext, onHowItWorks }: Props) {
   const [status, setStatus] = useState<Status>("loading");
   const [feedback, setFeedback] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
@@ -158,6 +160,7 @@ export function FeedbackScreen({ scenario, choice, restore, onBack, onHowItWorks
             <button className="btn btn-link" onClick={onHowItWorks}>
               Learn how this works
             </button>
+            {onNext && <NextButton onClick={onNext}>Next scenario</NextButton>}
           </div>
         )}
       </section>
