@@ -7,6 +7,7 @@ import { IntroScreen } from "./IntroScreen";
 import { QuestionScreen } from "./QuestionScreen";
 import { FeedbackScreen } from "./FeedbackScreen";
 import { HowItWorks } from "./HowItWorks";
+import { SparkleIcon } from "./SparkleIcon";
 
 type Step = { name: "intro" } | { name: "question" } | { name: "feedback"; choice: Choice };
 
@@ -18,7 +19,10 @@ export function CoachApp() {
   return (
     <div className="app">
       <header className="topbar">
-        <span className="brand">AI Sales Coach</span>
+        <span className="brand">
+          <SparkleIcon className="brand-icon" />
+          AI Sales Coach
+        </span>
         <button className="btn btn-link" onClick={() => setShowHow(true)}>
           How this works
         </button>

@@ -60,7 +60,15 @@ body {
   align-items: center;
   padding: 18px 0;
 }
-.brand { font-weight: 700; color: var(--teal); }
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.25em;
+  font-weight: 700;
+  color: var(--teal);
+}
+.brand-icon { width: 1.3em; height: 1.3em; flex-shrink: 0; }
 
 .screen {
   background: var(--surface);
