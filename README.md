@@ -34,11 +34,11 @@ feedback streams in   ◀──────  streams text back              ◀�
 | `src/lib/prompt.ts`          | The coaching prompt and Gemini model (server only)            |
 | `src/app/api/coach/route.ts` | API route that calls Gemini and streams the reply             |
 | `src/lib/coach.ts`           | Browser client for that route                                 |
-| `src/hooks/useWordStream.ts` | Word-by-word reveal (skipped for reduced-motion users)        |
+| `src/hooks/useWordStream.ts` | Word-by-word reveal                                           |
 | `src/components/`            | Intro, question, and feedback screens                         |
 
 ## Accessibility
 
 - Streamed text is hidden from screen readers; the full text is announced once instead of word by word.
-- Respects `prefers-reduced-motion` and `prefers-color-scheme`.
+- Respects `prefers-color-scheme`, and turns off fade-in animations for `prefers-reduced-motion`.
 - Real buttons, a native `<dialog>`, and visible keyboard focus.
