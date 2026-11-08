@@ -23,9 +23,6 @@ export function CoachApp() {
           <SparkleIcon className="brand-icon" />
           AI Sales Coach
         </span>
-        <button className="btn btn-link" onClick={() => setShowHow(true)}>
-          How this works
-        </button>
       </header>
 
       <main key={step.name}>
