@@ -1,9 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { Scenario } from "../types";
 import { StreamedLines } from "./StreamedLines";
 
+/** How long after the last intro line finishes before Get Started fades in. */
+const BUTTON_DELAY_MS = 1000;
+
 export function IntroScreen({ scenario, onStart }: { scenario: Scenario; onStart: () => void }) {
+  const [linesDone, setLinesDone] = useState(false);
   const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    if (!linesDone) return;
+    const id = window.setTimeout(() => setReady(true), BUTTON_DELAY_MS);
+    return () => window.clearTimeout(id);
+  }, [linesDone]);
 
   return (
     <section className="screen intro">
@@ -13,10 +23,10 @@ export function IntroScreen({ scenario, onStart }: { scenario: Scenario; onStart
         <StreamedLines
           lines={scenario.intro.map((text) => ({ text, className: "line" }))}
           pauseMs={1000}
-          onDone={() => setReady(true)}
+          onDone={() => setLinesDone(true)}
         />
       </div>
-      <button className="btn btn-primary" onClick={onStart} disabled={!ready}>
+      <button className={`btn btn-primary reveal ${ready ? "is-visible" : ""}`} onClick={onStart}>
         Get Started
       </button>
     </section>

@@ -101,6 +101,18 @@ h2 { font-size: 20px; font-weight: 600; color: var(--teal); margin: 0 0 8px; }
 .avatar-lg { width: 112px; height: 112px; }
 .avatar-sm { width: 40px; height: 40px; }
 
+/* Hidden (and not clickable) until it gets .is-visible, then fades in. */
+.reveal {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.6s ease, visibility 0s linear 0.6s;
+}
+.reveal.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.6s ease;
+}
+
 /* Intro */
 .intro { text-align: center; }
 .intro-lines { min-height: 7.5em; margin-bottom: 24px; }
