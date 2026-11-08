@@ -164,6 +164,26 @@ h2 { font-size: 20px; font-weight: 600; color: var(--teal); margin: 0 0 8px; }
   font-style: italic;
 }
 
+/*
+ * Start the question and feedback boxes at roughly their finished height, so the Back
+ * button below them stays put while text streams in. They still grow for long feedback.
+ * Heights measured from the finished screens at each width, plus some headroom.
+ */
+.screen.question { min-height: 490px; }
+.screen.feedback { min-height: 670px; }
+@media (max-width: 760px) {
+  .screen.question { min-height: 590px; }
+  .screen.feedback { min-height: 770px; }
+}
+@media (max-width: 480px) {
+  .screen.question { min-height: 790px; }
+  .screen.feedback { min-height: 1060px; }
+}
+@media (max-width: 375px) {
+  .screen.question { min-height: 890px; }
+  .screen.feedback { min-height: 1090px; }
+}
+
 /* Choices */
 .choices {
   display: grid;
