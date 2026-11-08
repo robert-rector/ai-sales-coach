@@ -28,7 +28,7 @@ export function FeedbackScreen({ scenario, choice, onBack, onRestart, onHowItWor
       : status === "complete"
         ? feedback
         : feedback.slice(0, feedback.lastIndexOf(" ") + 1).trimEnd();
-  const { shown, done: revealed } = useWordStream(revealTarget, 60);
+  const { shown, done: revealed } = useWordStream(revealTarget, 85);
   const done = status === "complete" && revealed;
 
   const request = useCallback(() => {
