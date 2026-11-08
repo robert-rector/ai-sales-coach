@@ -3,6 +3,7 @@ import { RateLimitError, streamCoaching } from "@/lib/coach";
 import { loadFeedback, saveFeedback } from "@/lib/feedbackCache";
 import { useWordStream } from "@/hooks/useWordStream";
 import type { Choice, Scenario } from "@/types";
+import { CheckIcon, CopyIcon, RegenerateIcon } from "./ActionIcons";
 import { BackButton } from "./BackButton";
 
 interface Props {
@@ -140,10 +141,12 @@ export function FeedbackScreen({ scenario, choice, restore, onBack, onHowItWorks
             {done && (
               <div className="feedback-actions fade-in">
                 <button className="btn btn-ghost" onClick={request}>
-                  ↻ Regenerate response
+                  <RegenerateIcon />
+                  Regenerate response
                 </button>
                 <button className="btn btn-ghost" onClick={copy}>
-                  {copied ? "✓ Copied" : "Copy"}
+                  {copied ? <CheckIcon /> : <CopyIcon />}
+                  {copied ? "Copied" : "Copy"}
                 </button>
               </div>
             )}
