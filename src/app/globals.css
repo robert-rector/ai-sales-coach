@@ -189,7 +189,14 @@ h2 { font-size: 20px; font-weight: 600; color: var(--teal); margin: 0 0 8px; }
 .choice:hover:not(:disabled) { background: var(--surface); color: var(--teal-dark); }
 @media (prefers-color-scheme: dark) { .choice { color: #0b1515; } }
 
-.back { display: block; margin-top: 24px; font-size: 14px; }
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 24px;
+  padding: 8px 18px 8px 13px;
+}
+.btn-back svg { width: 16px; height: 16px; }
 
 /* Feedback */
 .your-choice {

@@ -81,7 +81,6 @@ export function CoachApp() {
               choice={step.choice}
               restore={step.restore ?? false}
               onBack={() => go({ name: "question" })}
-              onRestart={() => go({ name: "intro" })}
               onHowItWorks={() => setShowHow(true)}
             />
           )}

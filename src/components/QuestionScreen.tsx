@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { Choice, Scenario } from "../types";
+import { BackButton } from "./BackButton";
 import { StreamedLines } from "./StreamedLines";
 
 /** How long after "How will you respond?" finishes before the choices appear. */
@@ -61,9 +62,7 @@ export function QuestionScreen({ scenario, onChoose, onBack }: Props) {
         ))}
       </div>
 
-      <button className="btn btn-link back" onClick={onBack}>
-        ← Back
-      </button>
+      <BackButton onClick={onBack} />
     </section>
   );
 }
