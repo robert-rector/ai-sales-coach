@@ -1,6 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { Choice, Scenario } from "../types";
 import { StreamedLines } from "./StreamedLines";
+
+/** How long after "How will you respond?" finishes before the choices appear. */
+const CHOICES_DELAY_MS = 1000;
 
 interface Props {
   scenario: Scenario;
@@ -9,8 +12,15 @@ interface Props {
 }
 
 export function QuestionScreen({ scenario, onChoose, onBack }: Props) {
+  const [linesDone, setLinesDone] = useState(false);
   const [ready, setReady] = useState(false);
   const { coach, prospect } = scenario;
+
+  useEffect(() => {
+    if (!linesDone) return;
+    const id = window.setTimeout(() => setReady(true), CHOICES_DELAY_MS);
+    return () => window.clearTimeout(id);
+  }, [linesDone]);
 
   return (
     <section className="screen question">
@@ -18,7 +28,8 @@ export function QuestionScreen({ scenario, onChoose, onBack }: Props) {
         <img className="avatar" src={coach.avatar} alt={coach.name} />
         <div className="speaker-body">
           <StreamedLines
-            onDone={() => setReady(true)}
+            pauseMs={1000}
+            onDone={() => setLinesDone(true)}
             lines={[
               ...scenario.setup.map((text) => ({ text, className: "line" })),
               {
