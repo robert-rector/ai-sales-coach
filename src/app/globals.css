@@ -255,10 +255,12 @@ h2 { font-size: 20px; font-weight: 600; color: var(--teal); margin: 0 0 8px; }
 
 .feedback-actions { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
 
-/* Feedback box: content at the top, footer (divider, Back/Next, explainer link) pinned to the bottom. */
+/* Footer at the bottom of the question and feedback boxes: divider, then Back (and Next).
+   On the feedback screen it's pinned to the bottom of the box so it stays put while text streams. */
 .screen.feedback { display: flex; flex-direction: column; }
 .screen.feedback .speaker { margin-bottom: 28px; }
-.feedback-footer {
+.screen.question .choices { margin-bottom: 28px; }
+.screen-footer {
   margin-top: auto;
   padding-top: 20px;
   border-top: 1px solid var(--border);

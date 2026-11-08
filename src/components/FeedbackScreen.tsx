@@ -157,7 +157,7 @@ export function FeedbackScreen({ scenario, choice, restore, onBack, onNext, onHo
 
         {/* Pinned to the bottom of the box with Back shown from the start, so it never moves.
             Next and the explainer link fade into their reserved space once feedback finishes. */}
-        <div className="feedback-footer">
+        <div className="screen-footer">
           <div className="footer-nav">
             <BackButton onClick={onBack} />
             {onNext && (
