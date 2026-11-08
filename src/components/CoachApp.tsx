@@ -9,7 +9,11 @@ import { FeedbackScreen } from "./FeedbackScreen";
 import { HowItWorks } from "./HowItWorks";
 import { SparkleIcon } from "./SparkleIcon";
 
-type Step = { name: "intro" } | { name: "question" } | { name: "feedback"; choice: Choice };
+type Step =
+  | { name: "intro" }
+  | { name: "question" }
+  /** `restore`: show the remembered feedback (refresh, back/forward) rather than asking for new. */
+  | { name: "feedback"; choice: Choice; restore?: boolean };
 
 /** Reads the current screen from the address, e.g. ?screen=feedback&choice=curious_probe. */
 function stepFromUrl(scenario: Scenario): Step {
@@ -18,7 +22,7 @@ function stepFromUrl(scenario: Scenario): Step {
   if (screen === "question") return { name: "question" };
   if (screen === "feedback") {
     const choice = scenario.choices.find((c) => c.id === params.get("choice"));
-    if (choice) return { name: "feedback", choice };
+    if (choice) return { name: "feedback", choice, restore: true };
   }
   return { name: "intro" };
 }
@@ -75,6 +79,7 @@ export function CoachApp() {
             <FeedbackScreen
               scenario={scenario}
               choice={step.choice}
+              restore={step.restore ?? false}
               onBack={() => go({ name: "question" })}
               onRestart={() => go({ name: "intro" })}
               onHowItWorks={() => setShowHow(true)}

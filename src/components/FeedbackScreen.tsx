@@ -1,11 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { RateLimitError, streamCoaching } from "@/lib/coach";
+import { loadFeedback, saveFeedback } from "@/lib/feedbackCache";
 import { useWordStream } from "@/hooks/useWordStream";
 import type { Choice, Scenario } from "@/types";
 
 interface Props {
   scenario: Scenario;
   choice: Choice;
+  /** Show this choice's remembered feedback, if any, instead of asking for new. */
+  restore: boolean;
   onBack: () => void;
   onRestart: () => void;
   onHowItWorks: () => void;
@@ -13,7 +16,7 @@ interface Props {
 
 type Status = "loading" | "streaming" | "complete" | "error" | "limited";
 
-export function FeedbackScreen({ scenario, choice, onBack, onRestart, onHowItWorks }: Props) {
+export function FeedbackScreen({ scenario, choice, restore, onBack, onRestart, onHowItWorks }: Props) {
   const [status, setStatus] = useState<Status>("loading");
   const [feedback, setFeedback] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
@@ -46,7 +49,10 @@ export function FeedbackScreen({ scenario, choice, onBack, onRestart, onHowItWor
       },
       controller.signal,
     )
-      .then(() => setStatus("complete"))
+      .then((text) => {
+        saveFeedback(scenario.id, choice.id, text);
+        setStatus("complete");
+      })
       .catch((err) => {
         if (err.name === "AbortError") return;
         setStatus(err instanceof RateLimitError ? "limited" : "error");
@@ -54,9 +60,15 @@ export function FeedbackScreen({ scenario, choice, onBack, onRestart, onHowItWor
   }, [scenario.id, choice.id]);
 
   useEffect(() => {
-    request();
+    const saved = restore ? loadFeedback(scenario.id, choice.id) : null;
+    if (saved) {
+      setFeedback(saved);
+      setStatus("complete");
+    } else {
+      request();
+    }
     return () => abortRef.current?.abort();
-  }, [request]);
+  }, [request, restore, scenario.id, choice.id]);
 
   useEffect(() => {
     if (!copied) return;
