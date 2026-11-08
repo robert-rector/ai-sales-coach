@@ -43,3 +43,21 @@ export function CheckIcon() {
     </Icon>
   );
 }
+
+/** Filled dark-teal circle with a white question mark (for "Learn how this works"). */
+export function HelpIcon() {
+  return (
+    <svg className="help-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <circle cx="12" cy="12" r="12" className="help-icon-circle" />
+      <path
+        d="M9.2 9.3a2.9 2.9 0 0 1 5.6 1c0 1.9-2.8 2.4-2.8 4.2"
+        fill="none"
+        className="help-icon-mark"
+        strokeWidth="2.3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <circle cx="12" cy="18" r="1.35" className="help-icon-dot" />
+    </svg>
+  );
+}

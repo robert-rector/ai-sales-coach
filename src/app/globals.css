@@ -183,9 +183,9 @@ h2 { font-size: 20px; font-weight: 600; color: var(--teal); margin: 0 0 8px; }
  * Heights measured from finished feedback at each width, plus some headroom.
  * (The question screen needs none: StreamedLines reserves each line's space up front.)
  */
-.screen.feedback { min-height: 635px; }
+.screen.feedback { min-height: 660px; }
 @media (max-width: 760px) {
-  .screen.feedback { min-height: 735px; }
+  .screen.feedback { min-height: 760px; }
 }
 @media (max-width: 480px) {
   .screen.feedback { min-height: 1110px; }
@@ -255,16 +255,31 @@ h2 { font-size: 20px; font-weight: 600; color: var(--teal); margin: 0 0 8px; }
 
 .feedback-actions { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
 
-.end-bar {
+/* Feedback box: content at the top, footer (divider, Back/Next, explainer link) pinned to the bottom. */
+.screen.feedback { display: flex; flex-direction: column; }
+.screen.feedback .speaker { margin-bottom: 28px; }
+.feedback-footer {
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+.footer-nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 12px;
-  flex-wrap: wrap;
-  margin-top: 28px;
-  padding-top: 20px;
-  border-top: 1px solid var(--border);
 }
+.footer-nav .btn-back { margin-top: 0; }
+.how-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 18px;
+}
+.help-icon { width: 20px; height: 20px; flex-shrink: 0; }
+.help-icon-circle { fill: var(--teal-dark); }
+.help-icon-mark { stroke: var(--surface); }
+.help-icon-dot { fill: var(--surface); }
 
 .disclaimer { font-size: 12px; color: var(--muted); text-align: center; margin: 12px 0 0; }
 .disclaimer + .btn-back { margin-top: 12px; }

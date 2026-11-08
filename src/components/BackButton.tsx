@@ -22,9 +22,15 @@ export function BackButton({ onClick }: { onClick: () => void }) {
   );
 }
 
-export function NextButton({ onClick, children }: { onClick: () => void; children: React.ReactNode }) {
+interface NextButtonProps {
+  onClick: () => void;
+  children: React.ReactNode;
+  className?: string;
+}
+
+export function NextButton({ onClick, children, className = "" }: NextButtonProps) {
   return (
-    <button className="btn btn-primary btn-next" onClick={onClick}>
+    <button className={`btn btn-primary btn-next ${className}`} onClick={onClick}>
       {children}
       <Chevron direction="right" />
     </button>
