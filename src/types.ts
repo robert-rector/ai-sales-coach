@@ -15,8 +15,6 @@ export interface Scenario {
   title: string;
   coach: Persona;
   prospect: Persona;
-  /** Coach's opening lines on the intro screen. */
-  intro: string[];
   /** Narration that sets up the moment before the prospect speaks. */
   setup: string[];
   prospectLine: string;

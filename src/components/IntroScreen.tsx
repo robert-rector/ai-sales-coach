@@ -1,4 +1,5 @@
 import { useEffect, useState, type CSSProperties } from "react";
+import intro from "@/content/intro.json";
 import type { Scenario } from "../types";
 import { StreamedLines } from "./StreamedLines";
 
@@ -56,7 +57,7 @@ export function IntroScreen({ scenario, onStart }: { scenario: Scenario; onStart
       <div className="intro-lines">
         {entered && (
           <StreamedLines
-            lines={scenario.intro.map((text) => ({ text, className: "line" }))}
+            lines={intro.lines.map((text) => ({ text, className: "line" }))}
             pauseMs={1000}
             onDone={() => setLinesDone(true)}
           />

@@ -31,6 +31,7 @@ feedback streams in   ◀──────  streams text back              ◀�
 | Path                         | What it is                                                    |
 | ---------------------------- | ------------------------------------------------------------- |
 | `src/scenarios/`             | Scenario content (setup, objection, choices and their intent) |
+| `src/content/`               | Text shared by every scenario, such as Alex's intro           |
 | `src/lib/prompt.ts`          | The coaching prompt and Gemini model (server only)            |
 | `src/app/api/coach/route.ts` | API route that calls Gemini and streams the reply             |
 | `src/lib/coach.ts`           | Browser client for that route                                 |

@@ -3,11 +3,6 @@
   "title": "Handling Objections",
   "coach": { "name": "Alex", "avatar": "/avatars/alex.png" },
   "prospect": { "name": "Sarah", "avatar": "/avatars/sarah.png" },
-  "intro": [
-    "Hi! I’m Alex, your AI sales coach!",
-    "In this session, you will respond to an objection in a discovery sales call.",
-    "You’ll choose how you reply and I’ll coach you on the impact of your choice."
-  ],
   "setup": [
     "You’re a sales rep running a discovery call with a potential client, Sarah, who’s evaluating software like yours.",
     "Midway through, Sarah says:"
