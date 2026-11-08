@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { RateLimitError, streamCoaching } from "@/lib/coach";
 import { loadFeedback, saveFeedback } from "@/lib/feedbackCache";
 import { useWordStream } from "@/hooks/useWordStream";
@@ -20,6 +20,8 @@ export function FeedbackScreen({ scenario, choice, restore, onBack, onRestart, o
   const [status, setStatus] = useState<Status>("loading");
   const [feedback, setFeedback] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  // Remembered feedback (after a refresh) is shown whole rather than streamed again.
+  const [instant, setInstant] = useState(false);
   const abortRef = useRef<AbortController | null>(null);
 
   const failed = status === "error" || status === "limited";
@@ -31,8 +33,9 @@ export function FeedbackScreen({ scenario, choice, restore, onBack, onRestart, o
       : status === "complete"
         ? feedback
         : feedback.slice(0, feedback.lastIndexOf(" ") + 1).trimEnd();
-  const { shown, done: revealed } = useWordStream(revealTarget, 85);
-  const done = status === "complete" && revealed;
+  const { shown: streamed, done: revealed } = useWordStream(instant ? null : revealTarget, 85);
+  const shown = instant ? (feedback ?? "") : streamed;
+  const done = status === "complete" && (instant || revealed);
 
   const request = useCallback(() => {
     abortRef.current?.abort();
@@ -40,6 +43,7 @@ export function FeedbackScreen({ scenario, choice, restore, onBack, onRestart, o
     abortRef.current = controller;
     setStatus("loading");
     setFeedback(null);
+    setInstant(false);
     streamCoaching(
       scenario.id,
       choice.id,
@@ -59,11 +63,13 @@ export function FeedbackScreen({ scenario, choice, restore, onBack, onRestart, o
       });
   }, [scenario.id, choice.id]);
 
-  useEffect(() => {
+  // Layout effect so remembered feedback is in place before the first paint (no "thinking" flash).
+  useLayoutEffect(() => {
     const saved = restore ? loadFeedback(scenario.id, choice.id) : null;
     if (saved) {
       setFeedback(saved);
       setStatus("complete");
+      setInstant(true);
     } else {
       request();
     }
