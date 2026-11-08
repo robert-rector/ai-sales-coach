@@ -121,6 +121,9 @@ h2 { font-size: 20px; font-weight: 600; color: var(--teal); margin: 0 0 8px; }
   transition: opacity 0.6s ease;
 }
 
+/* Fades in when it first appears (e.g. the controls after feedback finishes). */
+.fade-in { animation: fade-in 0.6s ease both; }
+
 /* Intro entrance: avatar springs in, then the title letters rise in. */
 .avatar-entrance {
   display: inline-block;
@@ -170,18 +173,18 @@ h2 { font-size: 20px; font-weight: 600; color: var(--teal); margin: 0 0 8px; }
  * Heights measured from the finished screens at each width, plus some headroom.
  */
 .screen.question { min-height: 490px; }
-.screen.feedback { min-height: 670px; }
+.screen.feedback { min-height: 635px; }
 @media (max-width: 760px) {
   .screen.question { min-height: 590px; }
-  .screen.feedback { min-height: 770px; }
+  .screen.feedback { min-height: 735px; }
 }
 @media (max-width: 480px) {
   .screen.question { min-height: 790px; }
-  .screen.feedback { min-height: 1060px; }
+  .screen.feedback { min-height: 1050px; }
 }
 @media (max-width: 375px) {
   .screen.question { min-height: 890px; }
-  .screen.feedback { min-height: 1090px; }
+  .screen.feedback { min-height: 1150px; }
 }
 
 /* Choices */
@@ -250,7 +253,8 @@ h2 { font-size: 20px; font-weight: 600; color: var(--teal); margin: 0 0 8px; }
   border-top: 1px solid var(--border);
 }
 
-.disclaimer { font-size: 12px; color: var(--muted); text-align: center; margin: 24px 0 0; }
+.disclaimer { font-size: 12px; color: var(--muted); text-align: center; margin: 12px 0 0; }
+.disclaimer + .btn-back { margin-top: 12px; }
 
 /* How it works dialog */
 .how {
