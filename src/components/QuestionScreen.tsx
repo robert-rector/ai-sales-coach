@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import type { Choice, Scenario } from "../types";
 import { BackButton } from "./BackButton";
 import { StreamedLines } from "./StreamedLines";
@@ -50,10 +50,11 @@ export function QuestionScreen({ scenario, onChoose, onBack }: Props) {
       </div>
 
       <div className={`choices ${ready ? "is-ready" : ""}`} role="group" aria-label="Your response">
-        {scenario.choices.map((choice) => (
+        {scenario.choices.map((choice, i) => (
           <button
             key={choice.id}
             className="choice"
+            style={{ "--i": i } as CSSProperties}
             onClick={() => onChoose(choice)}
             disabled={!ready}
           >
