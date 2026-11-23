@@ -2,8 +2,11 @@ import { useEffect, useRef } from "react";
 
 const DIAGRAM_FILE = "AI Sales Coach Application Diagram.jpeg";
 const DIAGRAM_SRC = `/${encodeURI(DIAGRAM_FILE)}`;
-/** Alt text is the file name without its extension. */
-const DIAGRAM_ALT = DIAGRAM_FILE.replace(/\.[^.]+$/, "");
+const DIAGRAM_ALT =
+  "Diagram of how the AI Sales Coach works: the learner is presented with a scenario and selects " +
+  "one of three responses. The app server receives the learner's answer and builds an AI prompt, " +
+  "which it sends to the Gemini API. Gemini returns coaching feedback to the app server, which " +
+  "sends it back for the learner to read.";
 
 export function HowItWorks({ open, onClose }: { open: boolean; onClose: () => void }) {
   const ref = useRef<HTMLDialogElement>(null);
