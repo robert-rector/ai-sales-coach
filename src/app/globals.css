@@ -128,7 +128,7 @@ h2 { font-size: 20px; font-weight: 600; color: var(--teal); margin: 0 0 8px; }
 /* Fades in when it first appears (e.g. the controls after feedback finishes). */
 .fade-in { animation: fade-in 0.6s ease both; }
 
-/* Intro entrance: avatar springs in, then the title letters rise in. */
+/* Intro entrance: avatar springs in, then the title letters sweep in from the left. */
 .avatar-entrance {
   display: inline-block;
   border-radius: 50%;
@@ -147,7 +147,7 @@ h2 { font-size: 20px; font-weight: 600; color: var(--teal); margin: 0 0 8px; }
   animation-delay: calc(0.3s + var(--i) * 35ms);
 }
 @keyframes letter-in {
-  from { opacity: 0; transform: translateY(0.5em); filter: blur(6px); }
+  from { opacity: 0; transform: translateX(-0.6em); filter: blur(6px); }
   to { opacity: 1; transform: none; filter: none; }
 }
 
