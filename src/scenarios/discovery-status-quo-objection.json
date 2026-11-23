@@ -4,7 +4,7 @@
   "coach": { "name": "Alex", "avatar": "/avatars/alex.png" },
   "prospect": { "name": "Bill", "avatar": "/avatars/bill.png" },
   "setup": [
-    "You’re a sales rep on a discovery call with Bill, an operations manager whose team has used the same system for years.",
+    "You’re now on a discovery call with Bill, an operations manager whose team has used the same system for years.",
     "As you start asking about his current process, Bill leans back and says:"
   ],
   "prospectLine": "Look, our current setup isn’t perfect, but it works. My team knows it, and switching sounds like a lot of pain for not much gain.",
