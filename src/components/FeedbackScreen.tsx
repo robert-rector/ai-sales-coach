@@ -37,7 +37,7 @@ export function FeedbackScreen({ scenario, choice, restore, onBack, onNext, onHo
       : status === "complete"
         ? feedback
         : feedback.slice(0, feedback.lastIndexOf(" ") + 1).trimEnd();
-  const { shownWords, shown: streamed, done: revealed } = useWordStream(instant ? null : revealTarget, 85);
+  const { shownWords, shown: streamed, done: revealed } = useWordStream(instant ? null : revealTarget, 72);
   const shown = instant ? (feedback ?? "") : streamed;
   const done = status === "complete" && (instant || revealed);
 

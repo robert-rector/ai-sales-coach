@@ -11,7 +11,7 @@ const SENTENCE_END = /[.!?…]["”’)]*$/;
  * Pacing is deliberately uneven, like a model streaming: each word arrives after
  * 0.5–1.5× `msPerWord` (averaging `msPerWord`), with a longer beat after a sentence.
  */
-export function useWordStream(text: string | null, msPerWord = 75) {
+export function useWordStream(text: string | null, msPerWord = 65) {
   const [count, setCount] = useState(0);
   const words = text ? text.split(" ") : [];
   const total = words.length;
