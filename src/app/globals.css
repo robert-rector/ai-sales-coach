@@ -63,8 +63,8 @@ body {
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-size: 1.25em;
+  gap: 10px;
+  font-size: 1.5em;
   font-weight: 700;
   color: var(--teal);
 }
@@ -153,7 +153,15 @@ h2 { font-size: 20px; font-weight: 600; color: var(--teal); margin: 0 0 8px; }
 
 /* Intro */
 .intro { text-align: center; }
-.intro-lines { min-height: 7.5em; margin-bottom: 24px; }
+/* Left-aligned lines, with the block as a whole centred under the title. Its width is the
+   longest line's (each line's full text is reserved up front), so it doesn't shift while streaming. */
+.intro-lines {
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto 24px;
+  min-height: 7.5em;
+  text-align: left;
+}
 .intro .line { margin: 0 0 6px; }
 
 /* Speaker layout */
