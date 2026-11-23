@@ -213,6 +213,9 @@ h2 { font-size: 20px; font-weight: 600; color: var(--teal); margin: 0 0 8px; }
   gap: 12px;
   margin-top: 24px;
 }
+/* The question box is a stage: anything outside it (the grey "wings") is hidden, so choices
+   flying in from off-screen only become visible as they cross into the box. */
+.screen.question { overflow: hidden; }
 /* Hidden until ready, then each choice flies in from off the left edge of the screen in turn,
    overshoots slightly, rebounds and settles. --i is its place in that order (set in
    QuestionScreen: rightmost first). Moving left by a full screen width (100vw) puts any choice
