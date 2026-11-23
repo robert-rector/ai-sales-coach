@@ -1,5 +1,10 @@
 import { useEffect, useRef } from "react";
 
+const DIAGRAM_FILE = "AI Sales Coach Application Diagram.jpeg";
+const DIAGRAM_SRC = `/${encodeURI(DIAGRAM_FILE)}`;
+/** Alt text is the file name without its extension; the steps below describe the same flow in words. */
+const DIAGRAM_ALT = DIAGRAM_FILE.replace(/\.[^.]+$/, "");
+
 export function HowItWorks({ open, onClose }: { open: boolean; onClose: () => void }) {
   const ref = useRef<HTMLDialogElement>(null);
 
@@ -13,6 +18,12 @@ export function HowItWorks({ open, onClose }: { open: boolean; onClose: () => vo
   return (
     <dialog ref={ref} className="how" onClose={onClose} aria-labelledby="how-title">
       <h2 id="how-title">How this works</h2>
+      <a className="how-diagram" href={DIAGRAM_SRC} target="_blank" rel="noopener">
+        <img src={DIAGRAM_SRC} alt={DIAGRAM_ALT} width={2082} height={902} />
+      </a>
+      <a className="how-diagram-open" href={DIAGRAM_SRC} target="_blank" rel="noopener">
+        Open the diagram full size ↗
+      </a>
       <ol>
         <li>The scenario (setup, objection, response options) is plain data, separate from the app.</li>
         <li>When you choose a response, the app’s server looks it up in the scenario.</li>

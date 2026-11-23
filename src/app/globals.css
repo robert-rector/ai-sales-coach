@@ -324,7 +324,7 @@ h2 { font-size: 20px; font-weight: 600; color: var(--teal); margin: 0 0 8px; }
 
 /* How it works dialog */
 .how {
-  max-width: min(520px, calc(100vw - 32px));
+  max-width: min(900px, calc(100vw - 32px));
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 28px;
@@ -333,6 +333,21 @@ h2 { font-size: 20px; font-weight: 600; color: var(--teal); margin: 0 0 8px; }
 }
 .how::backdrop { background: rgb(0 0 0 / 0.45); }
 .how ol { padding-left: 20px; }
+.how ol, .how p { max-width: 62ch; }
+.how-diagram img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+}
+.how-diagram-open {
+  display: inline-block;
+  margin: 8px 0 4px;
+  font-size: 14px;
+  color: var(--teal);
+}
 .how li { margin-bottom: 8px; }
 
 @media (prefers-reduced-motion: reduce) {
