@@ -362,11 +362,12 @@ h2 { font-size: 20px; font-weight: 600; color: var(--teal); margin: 0 0 8px; }
   .screen { animation: none; }
 }
 
-/* Enlarged diagram: fills the window, with a Close bar on top. On phones the image is drawn
-   wider than the screen (so its labels are readable) and the area scrolls to pan across it. */
+/* Enlarged diagram: covers 80% of the window, so the app stays visible around it (clicking
+   there closes it). The image scales to fit the area exactly, so nothing scrolls. On phones
+   it's drawn wider than the screen instead (so its labels are readable) and swipes to pan. */
 .diagram-viewer {
-  width: calc(100vw - 16px);
-  height: calc(100dvh - 16px);
+  width: 80vw;
+  height: 80dvh;
   max-width: none;
   max-height: none;
   padding: 0;
@@ -376,29 +377,28 @@ h2 { font-size: 20px; font-weight: 600; color: var(--teal); margin: 0 0 8px; }
   background: var(--surface);
 }
 .diagram-viewer[open] { display: flex; flex-direction: column; }
-.diagram-viewer::backdrop { background: rgb(0 0 0 / 0.6); }
+.diagram-viewer::backdrop { background: rgb(0 0 0 / 0.3); }
 .viewer-bar {
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   padding: 10px 12px;
   border-bottom: 1px solid var(--border);
 }
 .viewer-scroll {
   flex: 1;
-  overflow: auto;
-  padding: 12px;
+  min-height: 0;
+  overflow: hidden;
+  padding: 16px;
   display: flex;
 }
-/* Auto margins centre the image when it fits, and collapse to 0 when it's wider, so the
-   whole image stays reachable by scrolling (unlike align-items/justify-content: center). */
 .viewer-scroll img {
-  margin: auto;
-  flex-shrink: 0;
   display: block;
   width: 100%;
-  height: auto;
-  background: #fff;
+  height: 100%;
+  object-fit: contain;
 }
 @media (max-width: 760px) {
-  .viewer-scroll img { width: 1100px; }
+  .viewer-scroll { overflow: auto; }
+  /* Auto margins centre it vertically but collapse when it's wider, keeping the left edge reachable. */
+  .viewer-scroll img { width: 1100px; height: auto; flex-shrink: 0; margin: auto 0; }
 }
