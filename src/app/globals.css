@@ -222,8 +222,8 @@ h2 { font-size: 20px; font-weight: 600; color: var(--teal); margin: 0 0 8px; }
    wholly off-screen, wherever it sits; while waiting its turn it stays parked there. */
 .choice { opacity: 0; }
 .choices.is-ready .choice {
-  animation: choice-in 0.9s ease-out both;
-  animation-delay: calc(var(--i) * 120ms);
+  animation: choice-in 1.8s ease-out both;
+  animation-delay: calc(var(--i) * 240ms);
 }
 @keyframes choice-in {
   0% { opacity: 1; transform: translateX(-100vw); }
