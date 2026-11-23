@@ -35,7 +35,7 @@ feedback streams in   ◀──────  streams text back              ◀�
 | `src/lib/prompt.ts`          | The coaching prompt and Gemini model (server only)            |
 | `src/app/api/coach/route.ts` | API route that calls Gemini and streams the reply             |
 | `src/lib/coach.ts`           | Browser client for that route                                 |
-| `src/hooks/useWordStream.ts` | Word-by-word reveal                                           |
+| `src/hooks/useWordStream.ts` | Word-by-word reveal with natural, uneven pacing               |
 | `src/components/`            | Intro, question, and feedback screens                         |
 
 ## Accessibility

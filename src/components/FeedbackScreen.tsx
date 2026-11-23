@@ -5,6 +5,7 @@ import { useWordStream } from "@/hooks/useWordStream";
 import type { Choice, Scenario } from "@/types";
 import { CheckIcon, CopyIcon, HelpIcon, RegenerateIcon } from "./ActionIcons";
 import { BackButton, NextButton } from "./BackButton";
+import { FadeInWords } from "./FadeInWords";
 
 interface Props {
   scenario: Scenario;
@@ -36,7 +37,7 @@ export function FeedbackScreen({ scenario, choice, restore, onBack, onNext, onHo
       : status === "complete"
         ? feedback
         : feedback.slice(0, feedback.lastIndexOf(" ") + 1).trimEnd();
-  const { shown: streamed, done: revealed } = useWordStream(instant ? null : revealTarget, 85);
+  const { shownWords, shown: streamed, done: revealed } = useWordStream(instant ? null : revealTarget, 85);
   const shown = instant ? (feedback ?? "") : streamed;
   const done = status === "complete" && (instant || revealed);
 
@@ -131,7 +132,7 @@ export function FeedbackScreen({ scenario, choice, restore, onBack, onNext, onHo
             )}
             {!failed && shown && (
               <p className="feedback-text" aria-hidden="true">
-                {shown}
+                {instant ? feedback : <FadeInWords words={shownWords} />}
               </p>
             )}
             {status === "complete" && (

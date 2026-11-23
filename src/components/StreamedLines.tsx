@@ -1,15 +1,17 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { useWordStream } from "../hooks/useWordStream";
+import { FadeInWords } from "./FadeInWords";
 
 interface LineProps {
   text: string;
   started: boolean;
   onDone: () => void;
-  render?: (shown: string) => ReactNode;
+  render?: (content: ReactNode) => ReactNode;
 }
 
 function StreamedLine({ text, started, onDone, render }: LineProps) {
-  const { shown, done } = useWordStream(started ? text : null);
+  const { shownWords, done } = useWordStream(started ? text : null);
+  const shown = <FadeInWords words={shownWords} />;
 
   useEffect(() => {
     if (done) onDone();
@@ -33,7 +35,7 @@ function StreamedLine({ text, started, onDone, render }: LineProps) {
 }
 
 interface Props {
-  lines: { text: string; render?: (shown: string) => ReactNode; className?: string }[];
+  lines: { text: string; render?: (content: ReactNode) => ReactNode; className?: string }[];
   /** Pause between one line finishing and the next starting. */
   pauseMs?: number;
   onDone?: () => void;

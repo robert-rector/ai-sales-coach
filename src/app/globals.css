@@ -179,6 +179,10 @@ h2 { font-size: 20px; font-weight: 600; color: var(--teal); margin: 0 0 8px; }
   font-style: italic;
 }
 
+/* Each streamed word fades in as it arrives, rather than popping in like a typewriter. */
+.word-in { animation: word-in 220ms ease-out both; }
+@keyframes word-in { from { opacity: 0; } }
+
 /* A streamed line stacks its visible text on top of an invisible full copy that holds its space. */
 .stream-line { display: grid; }
 .stream-line > .stream-ghost,
