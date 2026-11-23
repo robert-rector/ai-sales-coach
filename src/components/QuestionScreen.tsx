@@ -54,7 +54,8 @@ export function QuestionScreen({ scenario, onChoose, onBack }: Props) {
           <button
             key={choice.id}
             className="choice"
-            style={{ "--i": i } as CSSProperties}
+            // Reverse order: the last (rightmost) choice flies in first.
+            style={{ "--i": scenario.choices.length - 1 - i } as CSSProperties}
             onClick={() => onChoose(choice)}
             disabled={!ready}
           >

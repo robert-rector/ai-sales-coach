@@ -214,7 +214,7 @@ h2 { font-size: 20px; font-weight: 600; color: var(--teal); margin: 0 0 8px; }
   margin-top: 24px;
 }
 /* Hidden until ready, then each choice flies in from the left in turn, overshoots slightly,
-   rebounds and settles. --i is the choice's position (set in QuestionScreen). */
+   rebounds and settles. --i is its place in that order (set in QuestionScreen: rightmost first). */
 .choice { opacity: 0; }
 .choices.is-ready .choice {
   animation: choice-in 0.75s ease-out both;
