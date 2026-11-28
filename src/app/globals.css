@@ -419,5 +419,5 @@ h2 { font-size: 20px; font-weight: 600; color: var(--teal); margin: 0 0 8px; }
     font-size: 0.95em;
     text-align: center;
   }
-  .rotate-hint svg { width: 22px; height: 22px; flex-shrink: 0; }
+  .rotate-hint svg { width: 26px; height: 24px; flex-shrink: 0; } /* the icon's own 1.09 : 1 shape */
 }
