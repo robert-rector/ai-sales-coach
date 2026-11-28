@@ -364,7 +364,7 @@ h2 { font-size: 20px; font-weight: 600; color: var(--teal); margin: 0 0 8px; }
 
 /* Enlarged diagram: covers 80% of the window, so the app stays visible around it (clicking
    there closes it). The image scales to fit the area exactly, so nothing scrolls. On phones
-   it's drawn wider than the screen instead (so its labels are readable) and swipes to pan. */
+   held upright it suggests rotating; turned sideways it fills the screen. */
 .diagram-viewer {
   width: 80vw;
   height: 80dvh;
@@ -397,8 +397,36 @@ h2 { font-size: 20px; font-weight: 600; color: var(--teal); margin: 0 0 8px; }
   height: 100%;
   object-fit: contain;
 }
-@media (max-width: 760px) {
-  .viewer-scroll { overflow: auto; }
-  /* Auto margins centre it vertically but collapse when it's wider, keeping the left edge reachable. */
-  .viewer-scroll img { width: 1100px; height: auto; flex-shrink: 0; margin: auto 0; }
+/* Shown only on phones held upright (see below). */
+.viewer-rotate { display: none; }
+
+/* Phones held upright: the diagram fits the width, and a hint suggests turning the phone. */
+@media (orientation: portrait) and (max-width: 760px) {
+  .diagram-viewer { height: fit-content; }
+  .viewer-scroll { display: block; flex: none; }
+  .viewer-scroll img { height: auto; }
+  .viewer-rotate {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 0;
+    padding: 4px 16px 18px;
+    color: var(--muted);
+    font-size: 0.95em;
+    text-align: center;
+  }
+  .viewer-rotate svg { width: 22px; height: 22px; flex-shrink: 0; }
+}
+
+/* Phones turned sideways: the enlarged view fills the whole screen. */
+@media (orientation: landscape) and (max-height: 500px) {
+  .diagram-viewer {
+    width: 100vw;
+    height: 100dvh;
+    border: none;
+    border-radius: 0;
+  }
+  .viewer-bar { padding: 6px max(12px, env(safe-area-inset-left)); }
+  .viewer-scroll { padding: 8px max(12px, env(safe-area-inset-left)) max(8px, env(safe-area-inset-bottom)); }
 }

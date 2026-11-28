@@ -8,6 +8,17 @@ const DIAGRAM_ALT =
   "which it sends to the Gemini API. Gemini returns coaching feedback to the app server, which " +
   "sends it back for the learner to read.";
 
+/** A phone outline with a curved arrow, suggesting turning the phone sideways. */
+function RotateIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+      <rect x="3" y="7" width="9" height="15" rx="2" />
+      <path d="M14 3a7 7 0 0 1 7 7" />
+      <path d="M21 6v4h-4" />
+    </svg>
+  );
+}
+
 /** Opens or closes a <dialog> as a modal to match `open`. */
 function useModal(ref: RefObject<HTMLDialogElement | null>, open: boolean) {
   useEffect(() => {
@@ -70,6 +81,11 @@ export function HowItWorks({ open, onClose }: { open: boolean; onClose: () => vo
         <div className="viewer-scroll">
           <img src={DIAGRAM_SRC} alt={DIAGRAM_ALT} width={2082} height={902} />
         </div>
+        {/* Only shown on phones held upright; turning the phone fills the screen with the diagram. */}
+        <p className="viewer-rotate">
+          <RotateIcon />
+          Rotate your phone to enlarge
+        </p>
       </dialog>
     </dialog>
   );
