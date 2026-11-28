@@ -398,25 +398,28 @@ h2 { font-size: 20px; font-weight: 600; color: var(--teal); margin: 0 0 8px; }
   object-fit: contain;
 }
 /* Shown only on phones held upright (see below). */
-.viewer-rotate { display: none; }
+.rotate-hint { display: none; }
 
 /* Phones held upright: the diagram fits the width, and a hint suggests turning the phone. */
 @media (orientation: portrait) and (max-width: 760px) {
   .diagram-viewer { height: fit-content; }
   .viewer-scroll { display: block; flex: none; }
   .viewer-scroll img { height: auto; }
-  .viewer-rotate {
+  .rotate-hint {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
     margin: 0;
-    padding: 4px 16px 18px;
     color: var(--muted);
     font-size: 0.95em;
     text-align: center;
   }
-  .viewer-rotate svg { width: 22px; height: 22px; flex-shrink: 0; }
+  .rotate-hint svg { width: 22px; height: 22px; flex-shrink: 0; }
+  /* In the pop-up it sits between the diagram and Got it. */
+  .how-diagram { margin-bottom: 10px; }
+  .how-body > .rotate-hint { margin-bottom: 20px; }
+  .diagram-viewer .rotate-hint { padding: 4px 16px 18px; }
 }
 
 /* Phones turned sideways: the enlarged view fills the whole screen. */

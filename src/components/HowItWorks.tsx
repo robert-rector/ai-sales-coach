@@ -19,6 +19,16 @@ function RotateIcon() {
   );
 }
 
+/** Only shown on phones held upright (by CSS); turning the phone sideways fills the screen with the diagram. */
+function RotateHint() {
+  return (
+    <p className="rotate-hint">
+      <RotateIcon />
+      Rotate your phone to enlarge
+    </p>
+  );
+}
+
 /** Opens or closes a <dialog> as a modal to match `open`. */
 function useModal(ref: RefObject<HTMLDialogElement | null>, open: boolean) {
   useEffect(() => {
@@ -55,6 +65,7 @@ export function HowItWorks({ open, onClose }: { open: boolean; onClose: () => vo
         <button className="how-diagram" onClick={() => setEnlarged(true)} title="Enlarge diagram">
           <img src={DIAGRAM_SRC} alt={DIAGRAM_ALT} width={2082} height={902} />
         </button>
+        <RotateHint />
         {/* autoFocus so opening the dialog doesn't put a focus ring around the diagram. */}
         <button className="btn btn-primary" onClick={onClose} autoFocus>
           Got it
@@ -81,11 +92,7 @@ export function HowItWorks({ open, onClose }: { open: boolean; onClose: () => vo
         <div className="viewer-scroll">
           <img src={DIAGRAM_SRC} alt={DIAGRAM_ALT} width={2082} height={902} />
         </div>
-        {/* Only shown on phones held upright; turning the phone fills the screen with the diagram. */}
-        <p className="viewer-rotate">
-          <RotateIcon />
-          Rotate your phone to enlarge
-        </p>
+        <RotateHint />
       </dialog>
     </dialog>
   );
