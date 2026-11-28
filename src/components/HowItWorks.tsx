@@ -13,13 +13,13 @@ function RotateIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
       <rect x="3" y="7" width="9" height="15" rx="2" />
-      <path d="M14 3a7 7 0 0 1 7 7" />
-      <path d="M21 6v4h-4" />
+      <path d="M13 3a7 7 0 0 1 7 7" />
+      <path d="m17 7 3 3 3-3" />
     </svg>
   );
 }
 
-/** Only shown on phones held upright (by CSS); turning the phone sideways fills the screen with the diagram. */
+/** Only shown on phones held upright (by CSS); turning the phone sideways shows the diagram bigger. */
 function RotateHint() {
   return (
     <p className="rotate-hint">
@@ -28,6 +28,9 @@ function RotateHint() {
     </p>
   );
 }
+
+/** Phones, upright or sideways. Matches the phone media queries in globals.css. */
+const PHONE_QUERY = "(orientation: portrait) and (max-width: 760px), (orientation: landscape) and (max-height: 500px)";
 
 /** Opens or closes a <dialog> as a modal to match `open`. */
 function useModal(ref: RefObject<HTMLDialogElement | null>, open: boolean) {
@@ -61,8 +64,15 @@ export function HowItWorks({ open, onClose }: { open: boolean; onClose: () => vo
       {/* Scrolls inside the rounded box, so a scrollbar never squares off the dialog's corners. */}
       <div className="how-body">
         <h2 id="how-title">How this works</h2>
-        {/* Enlarges in the app rather than opening a new tab, so learners don't lose their place. */}
-        <button className="how-diagram" onClick={() => setEnlarged(true)} title="Enlarge diagram">
+        {/* Enlarges in the app rather than opening a new tab, so learners don't lose their place.
+            Not on phones, where turning the phone is how learners enlarge it. */}
+        <button
+          className="how-diagram"
+          onClick={() => {
+            if (!window.matchMedia(PHONE_QUERY).matches) setEnlarged(true);
+          }}
+          title="Enlarge diagram"
+        >
           <img src={DIAGRAM_SRC} alt={DIAGRAM_ALT} width={2082} height={902} />
         </button>
         <RotateHint />
@@ -92,7 +102,6 @@ export function HowItWorks({ open, onClose }: { open: boolean; onClose: () => vo
         <div className="viewer-scroll">
           <img src={DIAGRAM_SRC} alt={DIAGRAM_ALT} width={2082} height={902} />
         </div>
-        <RotateHint />
       </dialog>
     </dialog>
   );
